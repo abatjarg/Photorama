@@ -6,7 +6,16 @@
 //  Copyright © 2016 Ariunjargal. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+enum ImageResult {
+    case Success(UIImage)
+    case Failure(ErrorType)
+}
+
+enum PhotoError: ErrorType {
+    case ImageCreationError
+}
 
 class PhotoStore {
     
@@ -35,4 +44,52 @@ class PhotoStore {
         }
         task.resume()
     }
+    
+    func fetchImageForPhoto(photo: Photo, completion: (ImageResult) -> Void) {
+        
+        if let image = photo.image {
+            completion(.Success(image))
+            return
+        }
+        
+        let photoURL = photo.remoteURL
+        let request = NSURLRequest(URL: photoURL)
+        
+        let task = session.dataTaskWithRequest(request) {
+            (data, response, error) -> Void in
+            
+            let result = self.processImageRequest(data: data, error: error)
+            
+            if case let .Success(image) = result {
+                photo.image = image
+            }
+            
+            completion(result)
+        }
+        task.resume()
+    }
+    
+    func processImageRequest(data data: NSData?, error: NSError?) -> ImageResult {
+        guard let
+            imageData = data,
+            image = UIImage(data: imageData) else {
+                if data == nil {
+                    return .Failure(error!)
+                } else {
+                    return .Failure(PhotoError.ImageCreationError)
+                }
+        }
+        
+        return .Success(image)
+    }
 }
+
+
+
+
+
+
+
+
+
+

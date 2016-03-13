@@ -8,22 +8,13 @@
 
 import UIKit
 
-class Photo {
+class Photo: Equatable {
     
     let title: String
     let remoteURL: NSURL
     let photoID: String
     let dateTaken: NSDate
     var image: UIImage?
-    
-    enum ImageResult {
-        case Success(UIImage)
-        case Failure(ErrorType)
-    }
-    
-    enum PhotoError: ErrorType {
-        case ImageCreationError
-    }
     
     init(title: String, photoID: String, remoteURL: NSURL, dateTaken: NSDate){
         self.title = title
@@ -32,8 +23,8 @@ class Photo {
         self.dateTaken = dateTaken
     }
     
-    func fetchImageForPhoto(photo: Photo, completion: (ImageResult) -> Void) {
-        let photoURL = photo.remoteURL
-        let request = NSURL
-    }
+}
+
+func == (lhs: Photo, rhs: Photo) -> Bool {
+    return lhs.photoID == rhs.photoID
 }
