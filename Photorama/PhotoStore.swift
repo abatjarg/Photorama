@@ -33,7 +33,7 @@ class PhotoStore {
             return .Failure(error!)
         }
         
-        return FlickrAPI.photosFromJSONData(jsonData, inContext: self.coreDataStack.mainQueueContext)
+        return FlickrAPI.photosFromJSONData(jsonData, inContext: self.coreDataStack.privateQueueContext)
     }
     
     func fetchRecentPhotos(completion completion: (PhotoResult) -> Void) {
@@ -46,9 +46,9 @@ class PhotoStore {
             var result = self.processRecentPhotosRequest(data: data, error: error)
             
             if case let .Success(photos) = result {
-               let mainQueueContext = self.coreDataStack.mainQueueContext
-                mainQueueContext.performBlockAndWait() {
-                    try! mainQueueContext.obtainPermanentIDsForObjects(photos)
+               let privateQueueContext = self.coreDataStack.privateQueueContext
+                privateQueueContext.performBlockAndWait() {
+                    try! privateQueueContext.obtainPermanentIDsForObjects(photos)
                 }
                 let objectIDs = photos.map{ $0.objectID }
                 let predicate = NSPredicate(format: "self IN %@", objectIDs)
