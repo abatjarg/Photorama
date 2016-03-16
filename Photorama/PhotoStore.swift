@@ -120,6 +120,30 @@ class PhotoStore {
         return photos
     }
     
+    func fetchMainQueueTags(predicate predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) throws -> [NSManagedObject] {
+        let fetchRequest = NSFetchRequest(entityName: "Tag")
+        fetchRequest.predicate = predicate
+        fetchRequest.sortDescriptors = sortDescriptors
+        
+        let mainQueueContext = self.coreDataStack.mainQueueContext
+        var mainQueueTags: [NSManagedObject]?
+        var fetchRequestError: ErrorType?
+        mainQueueContext.performBlockAndWait({
+            do {
+                mainQueueTags = try mainQueueContext.executeFetchRequest(fetchRequest) as? [NSManagedObject]
+            }
+            catch let error {
+                fetchRequestError = error
+            }
+        })
+        
+        guard let tags = mainQueueTags else {
+            throw fetchRequestError!
+        }
+        
+        return tags 
+    }
+    
     func processImageRequest(data data: NSData?, error: NSError?) -> ImageResult {
         guard let
             imageData = data,

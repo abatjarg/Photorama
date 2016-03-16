@@ -44,6 +44,7 @@ class CoreDataStack {
     
     func saveChanges() throws {
         var error: ErrorType!
+        
         mainQueueContext.performBlockAndWait() {
             if self.mainQueueContext.hasChanges {
                 do {
