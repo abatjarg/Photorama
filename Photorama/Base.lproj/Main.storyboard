@@ -47,6 +47,7 @@
                                         <connections>
                                             <outlet property="imageView" destination="tIx-Mv-viQ" id="eQ6-YV-pv6"/>
                                             <outlet property="spinner" destination="Tle-gD-q76" id="ijr-7y-ZMH"/>
+                                            <segue destination="fBR-8V-Ffz" kind="show" identifier="ShowPhoto" id="KPS-Ow-SCn"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -68,6 +69,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1117" y="429"/>
+        </scene>
+        <!--Photo Info View Controller-->
+        <scene sceneID="fwF-5v-n17">
+            <objects>
+                <viewController id="fBR-8V-Ffz" customClass="PhotoInfoViewController" customModule="Photorama" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="va8-Y9-hDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="dU1-YS-CA7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CPL-cQ-rRs">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PDk-Gy-ZFa">
+                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZME-9W-Jgl">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Tags" id="CAg-qM-gFI"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PDk-Gy-ZFa" firstAttribute="leading" secondItem="CPL-cQ-rRs" secondAttribute="leading" id="Q1W-b3-Iry"/>
+                            <constraint firstItem="ZME-9W-Jgl" firstAttribute="leading" secondItem="CPL-cQ-rRs" secondAttribute="leading" id="fDE-bf-YfV"/>
+                            <constraint firstItem="dU1-YS-CA7" firstAttribute="top" secondItem="ZME-9W-Jgl" secondAttribute="bottom" id="fHs-7I-TaJ"/>
+                            <constraint firstAttribute="trailing" secondItem="PDk-Gy-ZFa" secondAttribute="trailing" id="jPJ-g6-0pJ"/>
+                            <constraint firstAttribute="trailing" secondItem="ZME-9W-Jgl" secondAttribute="trailing" id="kK8-sw-j1J"/>
+                            <constraint firstItem="ZME-9W-Jgl" firstAttribute="top" secondItem="PDk-Gy-ZFa" secondAttribute="bottom" id="lkN-qc-lyS"/>
+                            <constraint firstItem="PDk-Gy-ZFa" firstAttribute="top" secondItem="va8-Y9-hDJ" secondAttribute="bottom" id="w5i-vy-7za"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="PDk-Gy-ZFa" id="msW-4w-4BL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oab-jE-D47" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1844" y="429"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9Tj-k3-AM3">
